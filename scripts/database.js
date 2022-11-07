@@ -7,12 +7,12 @@ const database = {
         {
             id: 3,
             name: "Mars",
-            
+
         },
         {
             id: 3,
             name: "Europa",
-            
+
         }
     ],
 
@@ -48,25 +48,25 @@ const database = {
             id: 1,
             name: "spacebar",
             active: true,
-            
+
         },
         {
             id: 2,
             name: "Ganymede",
             active: true,
-            
+
         },
         {
             id: 3,
             name: "Titan",
             active: true,
-          
+
         },
         {
             id: 4,
             name: "SHHHH",
             active: false,
-            
+
         }
     ],
 
@@ -123,7 +123,7 @@ const database = {
 
     transientState: {},
 
-    purchasedMinerals:[]
+    purchasedMinerals: []
 
 
 }
@@ -147,7 +147,43 @@ export const getFacilities = () => {
     return database.facilities.map(f => ({ ...f }))
 }
 
+export const getTransientState = () => {
+    return database.transientState.map(s => ({ ...s }))
+}
+
 export const purchaseMineral = () => {
+    //add transient state inventory to purchasedMaterials array
+    const existingInventoryCheck = () => { 
+        const existing = database.purchasedMinerals.filter(pM => {
+            return pM.mineralId === database.transientState.mineralId && pM.colonyId === database.transientState.colonyId})
+
+            return existing
+    }
+    const facilityMineralDeduction = () =>{
+        let facilityMineral = database.facilityMinerals.facilityId === database.transientState.facilityId && facilityMinerals.mineralId === database.transientState.mineralId
+        facilityMineral.qty--
+    }   
+
+    if (existingInventoryCheck().length > 0) {
+            existingInventoryCheck().qty ++
+    } else {
+        const getMaxId = () => {
+            return Math.max(...(database.purchasedMinerals.map(mineral => { return mineral.id })))
+        }
+        database.purchasedMinerals.push[
+            {
+                id: getMaxId()+1,
+                colonyId: database.transientState.colonyId,
+                mineralId: database.transientState.mineralId,
+                qty: 1
+            }
+        ]
+    }
+    //remove inventory from providing mining facility
+    facilityMineralDeduction()
+
+    //reset transient state
+    database.transientState = {}
 
     // Broadcast custom event to entire documement so that the
     // application can re-render and update state
