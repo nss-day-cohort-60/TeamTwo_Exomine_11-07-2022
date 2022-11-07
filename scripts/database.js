@@ -73,8 +73,51 @@ const database = {
     facilityMinerals: [
         {
             id: 1,
-            locationId: 2,
-            productionId: 3
+            name: "pepsi",
+            productionId: 1,
+            quantity: 200
+        },
+        {
+            id: 2,
+            name: "salt",
+            productionId: 1,
+            quantity: 40
+        },
+        {
+            id: 3,
+            name: "pepsi",
+            productionId: 2,
+            quantity: 305
+        },
+        {
+            id: 4,
+            name: "solid gold",
+            productionId: 2,
+            quantity: 60
+        },
+        {
+            id: 5,
+            name: "solid gold",
+            productionId: 3,
+            quantity: 80
+        },
+        {
+            id: 6,
+            name: "salt",
+            productionId: 3,
+            quantity: 28
+        },
+        {
+            id: 7,
+            name: "pepsi",
+            productionId: 4,
+            quantity: 500
+        },
+        {
+            id: 8,
+            name: "salt",
+            productionId: 4,
+            quantity: 900
         }
     ],
 
@@ -84,6 +127,7 @@ const database = {
 
 
 }
+
 
 export const setGoverner = (governerId) => {
     database.transientState.selectedFacility = governerId
