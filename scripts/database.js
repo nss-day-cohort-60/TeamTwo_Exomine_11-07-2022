@@ -178,7 +178,7 @@ export const purchaseMineral = () => {
             return existing
     }
     const facilityMineralDeduction = () =>{
-        let facilityMineral = database.facilityMinerals.productionId === database.transientState.productionId && facilityMinerals.mineralName === database.transientState.mineralName
+        let facilityMineral = database.facilityMinerals.productionId === database.transientState.productionId && database.facilityMinerals.mineralName === database.transientState.mineralName
         facilityMineral.qty--
     }   
 
