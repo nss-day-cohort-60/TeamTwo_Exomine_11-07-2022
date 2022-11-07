@@ -168,9 +168,9 @@ export const purchaseMineral = () => {
             existingInventoryCheck().qty ++
     } else {
         const getMaxId = () => {
-            return Math.max(...(database.purchasedMinerals.map(tag => { return tag.id })))
+            return Math.max(...(database.purchasedMinerals.map(mineral => { return mineral.id })))
         }
-        purchasedMinerals.push[
+        database.purchasedMinerals.push[
             {
                 id: getMaxId()+1,
                 colonyId: database.transientState.colonyId,
