@@ -122,10 +122,10 @@ const database = {
     ],
 
     transientState: {
-        colonyId:1,
-        productionId: 1,
-        mineralName: "salt",
-        governerId: 1
+        // colonyId:1,
+        // productionId: 1,
+        // mineralName: "salt",
+        // governorId: 1
     },
 
     purchasedMinerals: []
@@ -137,19 +137,19 @@ export const setMineral = (mineralName) => {
 }
 
 export const getFacilityMinerals = () => {
-    return database.purchasedMinerals.map(fM => ({ ...fM }))
+    return database.facilityMinerals.map(fM => ({ ...fM }))
 }
 
 export const getPurchasedMinerals = () => {
     return database.purchasedMinerals.map(pM => ({ ...pM }))
 }
 
-export const setGoverner = (governerId) => {
-    database.transientState.governerId = governerId
+export const setGovernor = (governorId) => {
+    database.transientState.governorId = governorId
     document.dispatchEvent(new CustomEvent("stateChanged"))
 }
 
-export const getGoverners = () => {
+export const getGovernors = () => {
     return database.governor.map(g => ({ ...g }))
 }
 
@@ -163,7 +163,7 @@ export const getColonies = () => {
 }
 
 export const setFacility = (productionId) => {
-    database.transientState.selectedFacility = productionId
+    database.transientState.productionId = productionId
     document.dispatchEvent(new CustomEvent("stateChanged"))
 }
 
@@ -188,7 +188,7 @@ export const purchaseMineral = () => {
             return fM.productionId == database.transientState.productionId && fM.name == database.transientState.mineralName
         })
         // console.log(facilityMineral.quantity--)
-        // console.log(facilityMineral.quantity)
+        console.log(facilityMineral)
         facilityMineral.quantity--
     }   
 

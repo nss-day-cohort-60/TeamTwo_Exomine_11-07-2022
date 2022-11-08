@@ -1,17 +1,17 @@
 //IMPORTS
-import { getGoverners } from "./database,js";
+import { getGovernors } from "./database,js";
 
 
 //GOVERNER DROP
-export const governersFuntion = () => {
+export const governorsFunction = () => {
 
-    const governers = getGoverners()
+    const governors = getGovernors()
 
     let html = `
-    <select class="governers" id="governers">
-        <option value="">Choose Governer</option>
-        ${ governers.map(governer=> {
-            return `<option value="${governer.id}">${governer.name}</option>`
+    <select class="governors" id="governors">
+        <option value="">Choose Governor</option>
+        ${ governors.map(governor=> {
+            return `<option value="${governor.id}">${governor.name}</option>`
         }).join("")}
     </select>`
 
