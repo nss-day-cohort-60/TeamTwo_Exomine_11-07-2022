@@ -4,19 +4,19 @@ import { getGovernors, getColonies, getPurchasedMinerals, setGovernor, getTransi
 
                              //GOVERNER//
 
-// find the active governers and put them in a new array
+// find the active governors and put them in a new array
 
 const findActiveGovernors = () => {
-    let activeGoverners = []
-    for (const governer of getGovernors()){
-        if (governer.active === true){
-            activeGoverners.push(governer)
+    let activeGovernors = []
+    for (const governor of getGovernors()){
+        if (governor.active === true){
+            activeGovernors.push(governor)
         }
     }
     return activeGovernors
 }
 
-// loop through the active governers and display them in a drop down
+// loop through the active governors and display them in a drop down
 
 export const governorsFunction = () => {
     let html = `

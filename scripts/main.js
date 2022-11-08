@@ -1,6 +1,7 @@
 import { governorsFunction } from "./colonyInfo.js";
 import { facilityDropDown, facilityRadio } from "./facilities.js";
 import { Cart } from "./Cart.js";
+import { thisIsntEvenMyFinalForm } from "./form.js";
 const mainContainer = document.querySelector("#container")
 document.addEventListener("stateChanged", (event) => {
     render()
@@ -8,19 +9,7 @@ document.addEventListener("stateChanged", (event) => {
 )
 
 const render = () => {
-    return `
-    <div>
-    ${governorsFunction()}
-    </div>    
-    <div>
-    ${facilityDropDown()}
-    </div>
-    <div>
-    ${facilityRadio()}
-    </div>
-    <div>
-    ${Cart()}
-    </div>`
+    return thisIsntEvenMyFinalForm()
     
 }
 
