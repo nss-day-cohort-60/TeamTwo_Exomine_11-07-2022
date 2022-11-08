@@ -1,12 +1,16 @@
+import { governorsFunction } from "./colonyInfo.js";
+import { facilityDropDown, facilityRadio } from "./facilities.js";
+import { Cart } from "./Cart.js";
 import { thisIsntEvenMyFinalForm } from "./form.js";
-
 const mainContainer = document.querySelector("#container")
+document.addEventListener("stateChanged", (event) => {
+    render()
+    }
+)
 
 const render = () => {
-    mainContainer.innerHTML = thisIsntEvenMyFinalForm()
+    return thisIsntEvenMyFinalForm()
+    
 }
 
-mainContainer.addEventListener(
-    "stateChanged", (customEvent) => { render() }
-)
-render()
+mainContainer.innerHTML = render()

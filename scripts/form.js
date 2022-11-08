@@ -1,5 +1,5 @@
 //IMPORTS
-import { governorsFunction } from "./colonyInfojs";
+import { governorsFunction, colonyInventoryHTML } from "./colonyInfojs";
 //import facility html
 //import cart html
 
@@ -9,7 +9,7 @@ export const thisIsntEvenMyFinalForm = () => {
     //GOVERNER DROP, colony name, and inventory
     html += `
         <section class="colonyInfo">
-            Choose a governor ${governorsFunction()}
+            Choose a governor ${governorsFunction()} ${colon}
         </section>`
 
     //MINERALS RADIO and facility drop

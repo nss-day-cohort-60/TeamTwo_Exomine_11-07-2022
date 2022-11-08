@@ -42,6 +42,8 @@ mainContainer.addEventListener( "change", (event) => {
 
 
                          //COLONY AND PURCHASES//
+                         
+// find the colony of the selected governor
 
 const findColony = (govColonyId) => {
     for(const colony of getColonies()){
@@ -51,6 +53,7 @@ const findColony = (govColonyId) => {
         }
     }
 }
+
 
 // find the minerals that this colony has purchased
 
@@ -65,7 +68,6 @@ const findMinerals = (colonyId) => {
 }
 
 
-// find the colony of the selected governor
 // create html for that colony's name and inventory
 
 export const colonyInventoryHTML = () => {
