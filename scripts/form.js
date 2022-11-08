@@ -1,23 +1,20 @@
 //IMPORTS
-import { getGoverners } from "./database,js";
+import { governorsFunction } from "./colonyInfojs";
+//import facility html
+//import cart html
 
+export const thisIsntEvenMyFinalForm = () => {
+    let html = "<h1>Space Adventure! (Its An Adventure In Space)</h1>"
 
-//GOVERNER DROP
-export const governersFuntion = () => {
+    //GOVERNER DROP, colony name, and inventory
+    html += `
+        <section class="colonyInfo">
+            Choose a governor ${governorsFunction()}
+        </section>`
 
-    const governers = getGoverners()
+    //MINERALS RADIO and facility drop
 
-    let html = `
-    <select class="governers" id="governers">
-        <option value="">Choose Governer</option>
-        ${ governers.map(governer=> {
-            return `<option value="${governer.id}">${governer.name}</option>`
-        }).join("")}
-    </select>`
+    //PURCHASE BUTTON and cart
 
     return html
 }
-
-//MINERALS RADIO
-
-//PURCHASE BUTTON
