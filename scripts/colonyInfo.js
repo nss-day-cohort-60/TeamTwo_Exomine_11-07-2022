@@ -2,14 +2,14 @@
 import { getGovernors, getColonies, getPurchasedMinerals, setGovernor, getTransientState, setColony } from "./database.js";
 
 
-                             //GOVERNER//
+//GOVERNER//
 
 // find the active governers and put them in a new array
 
 const findActiveGovernors = () => {
     let activeGoverners = []
-    for (const governer of getGovernors()){
-        if (governer.active === true){
+    for (const governer of getGovernors()) {
+        if (governer.active === true) {
             activeGoverners.push(governer)
         }
     }
@@ -22,34 +22,34 @@ export const governorsFunction = () => {
     let html = `
     <select class="governors" id="governors">
         <option value="">Choose Governor</option>
-        ${ findActiveGovernors().map(governor=> {
-            return `<option value="${governor.id}--${governor.colonyId}">${governor.name}</option>`
-        }).join("")}
+        ${findActiveGovernors().map(governor => {
+        return `<option value="${governor.id}--${governor.colonyId}">${governor.name}</option>`
+    }).join("")}
     </select>`
     return html
 }
 
 const mainContainer = document.querySelector("#container")
 
-mainContainer.addEventListener( "change", (event) => {
+mainContainer.addEventListener("change", (event) => {
     if (event.target.id === "governors") {
-        const [governorId,] = event.target.value.split("--")
+        const [governorId, colonyId] = event.target.value.split("--")
         setGovernor(governorId)
+        setColony(colonyId)
     }
 })
 
 
 
 
-                         //COLONY AND PURCHASES//
-                         
+//COLONY AND PURCHASES//
+
 // find the colony of the selected governor
 
-const findColony = (govColonyId) => {
-    for(const colony of getColonies()){
-        if(colony.id == govColonyId){
-          setColony(colony.id)
-          return colony.name
+const findColony = () => {
+    for (const colony of getColonies()) {
+        if (colony.id == getTransientState.colonyId) {
+            return colony.name
         }
     }
 }
@@ -59,8 +59,8 @@ const findColony = (govColonyId) => {
 
 const findMinerals = (colonyId) => {
     let colonyMinerals = []
-    for( const mineral of getPurchasedMinerals()){
-        if (mineral.colonyId === colonyId){
+    for (const mineral of getPurchasedMinerals()) {
+        if (mineral.colonyId === colonyId) {
             colonyMinerals.push(mineral)
         }
     }
@@ -71,17 +71,19 @@ const findMinerals = (colonyId) => {
 // create html for that colony's name and inventory
 
 export const colonyInventoryHTML = () => {
-    return `
-    <div id="colonyName">
-        <h2>${findColony()}</h2>
-    </div>
-    <div id="inventory">
-        <ul>
-        ${findMinerals(getTransientState().colonyId).map(mineral =>{ 
-            return `<li>${mineral.name}</li>`
-            }).join("")
-        }
-        </ul>
-    </div>` 
+    let html = ""
+        html += `
+            <div id="colonyName">
+                <h2>${findColony()}</h2>
+            </div>
+            <div id="inventory">
+                <ul>
+                    ${findMinerals(getTransientState().colonyId).map(mineral => {
+                    return `<li>${mineral.name}</li>`
+                    }).join("")
+                    }
+                </ul>
+            </div>`
+    return html
 }
 
