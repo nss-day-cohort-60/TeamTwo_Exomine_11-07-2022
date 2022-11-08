@@ -185,12 +185,11 @@ export const purchaseMineral = () => {
     }
     const facilityMineralDeduction = () =>{
         let facilityMineral = database.facilityMinerals.find(fM => {
-            console.log(fM)
             return fM.productionId == database.transientState.productionId && fM.name == database.transientState.mineralName
         })
-        console.log(facilityMineral.quantity--)
-        console.log(facilityMineral.quantity)
-        facilityMineral.quantity 
+        // console.log(facilityMineral.quantity--)
+        // console.log(facilityMineral.quantity)
+        facilityMineral.quantity--
     }   
 
     if (existingInventoryCheck().length > 0) {
