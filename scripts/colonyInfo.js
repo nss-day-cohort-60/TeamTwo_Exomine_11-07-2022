@@ -33,13 +33,11 @@ const mainContainer = document.querySelector("#container")
 
 mainContainer.addEventListener( "change", (event) => {
     if (event.target.id === "governors") {
-        const [governorId,] = event.target.value.split("--")
-        setGovernor(governorId)
+        const [governorId,colonyId] = event.target.value.split("--")
+        setGovernor(parseInt(governorId))
+        setColony(parseInt(colonyId))
     }
 })
-
-
-
 
                          //COLONY AND PURCHASES//
 
@@ -63,7 +61,6 @@ const findMinerals = (colonyId) => {
     }
     return colonyMinerals
 }
-
 
 // find the colony of the selected governor
 // create html for that colony's name and inventory

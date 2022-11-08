@@ -26,6 +26,6 @@ export const thisIsntEvenMyFinalForm = () => {
         `<section class="cart">
             ${Cart()}
         </section>`
-
+    // console.log(html)
     return html
 }
