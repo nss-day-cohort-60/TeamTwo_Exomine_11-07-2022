@@ -125,29 +125,34 @@ const database = {
         colonyId:1,
         productionId: 1,
         mineralName: "salt",
+        governerId: 1
     },
 
     purchasedMinerals: []
-
-
 }
+
 export const setMineral = (mineralName) => {
     database.transientState.mineralName = mineralName
     document.dispatchEvent(new CustomEvent("stateChanged"))
 }
+
 export const getFacilityMinerals = () => {
     return database.purchasedMinerals.map(fM => ({ ...fM }))
 }
+
 export const getPurchasedMinerals = () => {
     return database.purchasedMinerals.map(pM => ({ ...pM }))
 }
+
 export const setGoverner = (governerId) => {
     database.transientState.governerId = governerId
     document.dispatchEvent(new CustomEvent("stateChanged"))
 }
+
 export const getGoverners = () => {
     return database.governor.map(g => ({ ...g }))
 }
+
 export const setColony = (colonyId) => {
     database.transientState.colonyId = colonyId
     document.dispatchEvent(new CustomEvent("stateChanged"))
@@ -156,6 +161,7 @@ export const setColony = (colonyId) => {
 export const getColonies = () => {
     return database.colonies.map(c => ({ ...c }))
 }
+
 export const setFacility = (productionId) => {
     database.transientState.selectedFacility = productionId
     document.dispatchEvent(new CustomEvent("stateChanged"))
@@ -166,7 +172,7 @@ export const getFacilities = () => {
 }
 
 export const getTransientState = () => {
-    return database.transientState.map(s => ({ ...s }))
+    return structuredClone(database.transientState)
 }
 
 export const purchaseMineral = () => {
@@ -178,30 +184,37 @@ export const purchaseMineral = () => {
             return existing
     }
     const facilityMineralDeduction = () =>{
-        let facilityMineral = database.facilityMinerals.productionId === database.transientState.productionId && database.facilityMinerals.mineralName === database.transientState.mineralName
-        facilityMineral.qty--
+        let facilityMineral = database.facilityMinerals.find(fM => {
+            return fM.productionId == database.transientState.productionId && fM.name == database.transientState.mineralName
+        })
+        // console.log(facilityMineral.quantity--)
+        // console.log(facilityMineral.quantity)
+        facilityMineral.quantity--
     }   
 
     if (existingInventoryCheck().length > 0) {
-            existingInventoryCheck().qty ++
+            existingInventoryCheck().quantity ++
     } else {
         const getMaxId = () => {
-            return Math.max(...(database.purchasedMinerals.map(mineral => { return mineral.id })))
+            return Math.max(...(database.purchasedMinerals.map(mineral => { return mineral.id })),0)
         }
-        database.purchasedMinerals.push[
+        database.purchasedMinerals.push(
             {
                 id: getMaxId()+1,
                 colonyId: database.transientState.colonyId,
                 mineralName: database.transientState.mineralName,
-                qty: 1
+                quantity: 1
             }
-        ]
+            )
+        
     }
     //remove inventory from providing mining facility
     facilityMineralDeduction()
-
+console.log(database.purchasedMinerals)
+console.log(database.facilityMinerals[1])
     //reset transient state
     database.transientState = {}
+    
 
     // Broadcast custom event to entire documement so that the
     // application can re-render and update state
