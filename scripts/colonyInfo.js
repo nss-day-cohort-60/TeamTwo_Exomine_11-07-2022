@@ -80,11 +80,7 @@ export const colonyInventoryHTML = () => {
             <div id="inventory">
                 <ul>
                     ${findMinerals(state.colonyId).map(mineral => {
-<<<<<<< HEAD
-                    return `<li>${mineral.mineralName}</li>`
-=======
                     return `<li>${mineral.quantity} tons of ${mineral.mineralName}</li>`
->>>>>>> main
                     }).join("")
                     }
                 </ul>
