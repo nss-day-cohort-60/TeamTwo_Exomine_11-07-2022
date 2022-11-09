@@ -20,7 +20,8 @@ const findActiveGovernors = () => {
 
 export const governorsFunction = () => {
     let html = `
-    <select class="governors" id="governors">
+    <select class="governors" id="governors">`
+    html+=`
         <option value="">Choose Governor</option>
         ${findActiveGovernors().map(governor => {
         return `<option value="${governor.id}--${governor.colonyId}">${governor.name}</option>`
