@@ -1,5 +1,9 @@
 .purchase{
-    background-color: aquamarine;
+    background-color: rgb(223, 245, 242);
+    border-radius: 10%;
+    border-style: double;
+    border-width: 5px;
+    border-color: #404040;
 }
 
 .biggestBox{
@@ -8,6 +12,10 @@
     justify-content: space-evenly;
     
     column-gap: 20px;
+
+    background-color: rgb(184, 238, 231);
+    border-radius: 100%;
+
 }
 
 .colonyInfo{
