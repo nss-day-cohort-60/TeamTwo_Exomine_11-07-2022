@@ -3,6 +3,7 @@ import { getFacilities, setFacility, getFacilityMinerals, getTransientState, set
 //function to make a drop down of all available facilities - the id is the facilityID for each HTML element
 export const facilityDropDown = () => {
     let facilities = getFacilities()
+    facilities = facilities.filter(fac => fac.active)
     let state = getTransientState()
     let html = ""
     if (state.governorId){
