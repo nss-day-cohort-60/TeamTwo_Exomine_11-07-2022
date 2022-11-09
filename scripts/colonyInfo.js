@@ -46,9 +46,10 @@ mainContainer.addEventListener("change", (event) => {
 
 // find the colony of the selected governor
 
+let state = getTransientState()
 const findColony = () => {
     for (const colony of getColonies()) {
-        if (colony.id == getTransientState.colonyId) {
+        if (colony.id == state.colonyId) {
             return colony.name
         }
     }
