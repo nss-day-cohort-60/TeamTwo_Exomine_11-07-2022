@@ -10,7 +10,7 @@ const database = {
 
         },
         {
-            id: 3,
+            id: 2,
             name: "Europa",
 
         }

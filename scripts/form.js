@@ -1,5 +1,5 @@
 //IMPORTS
-import { governorsFunction } from "./colonyInfo.js";
+import { colonyInventoryHTML, governorsFunction } from "./colonyInfo.js";
 import { facilityDropDown, facilityRadio } from "./facilities.js";
 import { Cart } from "./Cart.js";
 
@@ -9,23 +9,28 @@ export const thisIsntEvenMyFinalForm = () => {
     //GOVERNER DROP, colony name, and inventory
     html += `
         <section class="colonyInfo">
-            Choose a governor ${governorsFunction()}
+            <div>    
+                Choose a governor ${governorsFunction()}
+            </div>
+            <div>
+                ${colonyInventoryHTML()}
+            </div>
         </section>`
 
     //MINERALS RADIO and facility drop
-    html+=
+    html +=
         `<section class="facilityDropDown">
             ${facilityDropDown()}
         </section>`
-    html+=
+    html +=
         `<section class="facilityRadio">
             ${facilityRadio()}
         </section>`
     //PURCHASE BUTTON and cart
-    html+=
+    html +=
         `<section class="cart">
             ${Cart()}
         </section>`
-
+    // console.log(html)
     return html
 }
