@@ -20,7 +20,8 @@ const findActiveGovernors = () => {
 
 export const governorsFunction = () => {
     let html = `
-    <select class="governors" id="governors">
+    <select class="governors" id="governors">`
+    html+=`
         <option value="">Choose Governor</option>
         ${findActiveGovernors().map(governor => {
         return `<option value="${governor.id}--${governor.colonyId}">${governor.name}</option>`
@@ -80,11 +81,7 @@ export const colonyInventoryHTML = () => {
             <div id="inventory">
                 <ul>
                     ${findMinerals(state.colonyId).map(mineral => {
-<<<<<<< HEAD
-                    return `<li>${mineral.mineralName}</li>`
-=======
                     return `<li>${mineral.quantity} tons of ${mineral.mineralName}</li>`
->>>>>>> main
                     }).join("")
                     }
                 </ul>
