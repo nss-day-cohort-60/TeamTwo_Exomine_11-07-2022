@@ -1,0 +1,59 @@
+.purchase{
+    background-color: aquamarine;
+}
+
+.biggestBox{
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-evenly;
+    
+    column-gap: 20px;
+}
+
+.colonyInfo{
+    display: flex;
+    align-items: baseline;
+    justify-content: space-evenly;
+
+    border-style: double;
+    border-width: 15px;
+
+    padding: 20px;
+}
+
+.colonyAndInventory {
+    display:flex;
+    flex-flow: column wrap;
+
+}
+
+
+.facilityInfo{
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-evenly;
+    flex-grow:2;
+
+    border-style: double;
+    border-width: 15px;
+
+    padding: 20px;
+}
+
+.cart{
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-evenly;
+    flex-grow:1;
+
+    border-style: double;
+    border-width: 15px;
+
+    padding: 20px;
+}
+
+.facilityAndCart{
+    display:flex;
+    
+    flex:wrap;
+}
