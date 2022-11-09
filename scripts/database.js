@@ -123,21 +123,43 @@ const database = {
 
     transientState: {
         // colonyId:1,
-        // productionId: 1,
-        // mineralName: "salt",
+        // productionId: 1, //now only held to pass into setMineral for cart inventory objects
+        // mineralName: "salt", //moving to cartMinerals for multimineral purchasing implementation
         // governorId: 1
     },
 
-    purchasedMinerals: []
+    purchasedMinerals: [],
+
+    cartMinerals: []
 }
 
 export const setMineral = (mineralName) => {
     database.transientState.mineralName = mineralName
+
+    const existingCartMineralCheck = () => {
+        const existing = database.cartMinerals.filter(cM => {
+            return cM.mineralName === mineralName && cM.productionId === database.transientState.productionId
+        })
+
+        return existing
+    }
+    if (existingCartMineralCheck().length > 0) {
+        let existing = existingCartMineralCheck()
+        existing[0].quantity++
+    } else {
+        database.cartMinerals.push({ mineralName: database.transientState.mineralName, productionId: database.transientState.productionId, quantity: 1 })
+    }
+    // console.log(database.cartMinerals)
+    delete database.transientState.mineralName, database.transientState.productionId
+    // console.log(database.transientState)
     document.dispatchEvent(new CustomEvent("stateChanged"))
 }
 
 export const getFacilityMinerals = () => {
     return database.facilityMinerals.map(fM => ({ ...fM }))
+}
+export const getCartMinerals = () => {
+    return database.cartMinerals.map(cM => ({ ...cM }))
 }
 
 export const getPurchasedMinerals = () => {
@@ -177,47 +199,61 @@ export const getTransientState = () => {
 
 export const purchaseMineral = () => {
     //add transient state inventory to purchasedMaterials array
-    
-    const existingInventoryCheck = () => { 
-        const existing = database.purchasedMinerals.filter(pM => {
-            return pM.mineralName === database.transientState.mineralName && pM.colonyId === database.transientState.colonyId})
+    //refactored to allow multiple purchases with one button press. Map through cartMinerals to retain as much single purchase code as possible
+    let carted = database.cartMinerals
 
+    carted.map(cartObj => {
+
+        const existingInventoryCheck = () => {
+            const existing = database.purchasedMinerals.filter(pM => {
+                return pM.mineralName === cartObj.mineralName && pM.colonyId === database.transientState.colonyId
+            })
             return existing
-    }
-    const facilityMineralDeduction = () =>{
-        let facilityMineral = database.facilityMinerals.find(fM => {
-            return fM.productionId == database.transientState.productionId && fM.name == database.transientState.mineralName
-        })
-        // console.log(facilityMineral.quantity--)
-        console.log(facilityMineral)
-        facilityMineral.quantity--
-    }   
+        }
+        const facilityMineralDeduction = () => {
+            // let cartMinerals = getCartMinerals()
+                let thisFoundMineral = database.facilityMinerals.find(fM => {
+                    return fM.productionId === cartObj.productionId && fM.name === cartObj.mineralName
+                })
+                thisFoundMineral.quantity = thisFoundMineral.quantity - cartObj.quantity
+            }
+        
 
-    if (existingInventoryCheck().length > 0) {
+        //code commented out from previous single-mineral purchase im[;ementation for new multimineral purchasing]
+        // let facilityMineral = database.facilityMinerals.find(fM => {
+        //     return fM.productionId == database.transientState.productionId && fM.name == database.transientState.mineralName
+        // })
+        // console.log(facilityMineral.quantity--)
+        // console.log(facilityMineral)
+        // facilityMineral.quantity--
+        let oldInv = existingInventoryCheck()
+        if (oldInv[0]) {
             const foundMineral = existingInventoryCheck()
-            foundMineral[0].quantity ++
+            foundMineral[0].quantity += cartObj.quantity 
     } else {
 
-        const getMaxId = () => {
-            return Math.max(...(database.purchasedMinerals.map(mineral => { return mineral.id })),0)
-        }
-        database.purchasedMinerals.push(
-            {
-                id: getMaxId()+1,
-                colonyId: database.transientState.colonyId,
-                mineralName: database.transientState.mineralName,
-                quantity: 1
+            const getMaxId = () => {
+                return Math.max(...(database.purchasedMinerals.map(mineral => { return mineral.id })), 0)
             }
+            database.purchasedMinerals.push(
+                {
+                    id: getMaxId() + 1,
+                    colonyId: database.transientState.colonyId,
+                    mineralName: cartObj.mineralName,
+                    quantity: cartObj.quantity
+                }
             )
-        
-    }
-    //remove inventory from providing mining facility
-    facilityMineralDeduction()
-console.log(database.purchasedMinerals)
-console.log(database.facilityMinerals[1])
+
+        }
+        //remove inventory from providing mining facility
+        facilityMineralDeduction()
+        console.log(database.purchasedMinerals)
+        console.log(database.facilityMinerals[1])
+    })
     //reset transient state
+    database.cartMinerals = []
     database.transientState = {}
-    
+
 
     // Broadcast custom event to entire documement so that the
     // application can re-render and update state
