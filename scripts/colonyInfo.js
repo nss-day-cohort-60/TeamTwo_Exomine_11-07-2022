@@ -34,8 +34,8 @@ const mainContainer = document.querySelector("#container")
 mainContainer.addEventListener("change", (event) => {
     if (event.target.id === "governors") {
         const [governorId, colonyId] = event.target.value.split("--")
-        setGovernor(governorId)
-        setColony(colonyId)
+        setGovernor(parseInt(governorId))
+        setColony(parseInt(colonyId))
     }
 })
 
@@ -60,7 +60,7 @@ const findColony = () => {
 const findMinerals = (colonyId) => {
     let colonyMinerals = []
     for (const mineral of getPurchasedMinerals()) {
-        if (mineral.colonyId === colonyId) {
+        if (mineral.colonyId == colonyId) {
             colonyMinerals.push(mineral)
         }
     }
