@@ -2,81 +2,88 @@
 import { getGovernors, getColonies, getPurchasedMinerals, setGovernor, getTransientState, setColony } from "./database.js";
 
 
-                             //GOVERNER//
+//GOVERNER//
 
-// find the active governors and put them in a new array
+// find the active governers and put them in a new array
 
 const findActiveGovernors = () => {
-    let activeGovernors = []
-    for (const governor of getGovernors()){
-        if (governor.active === true){
-            activeGovernors.push(governor)
+    let activeGoverners = []
+    for (const governer of getGovernors()) {
+        if (governer.active === true) {
+            activeGoverners.push(governer)
         }
     }
-    return activeGovernors
+    return activeGoverners
 }
 
-// loop through the active governors and display them in a drop down
+// loop through the active governers and display them in a drop down
 
 export const governorsFunction = () => {
     let html = `
     <select class="governors" id="governors">
         <option value="">Choose Governor</option>
-        ${ findActiveGovernors().map(governor=> {
-            return `<option value="${governor.id}--${governor.colonyId}">${governor.name}</option>`
-        }).join("")}
+        ${findActiveGovernors().map(governor => {
+        return `<option value="${governor.id}--${governor.colonyId}">${governor.name}</option>`
+    }).join("")}
     </select>`
     return html
 }
 
 const mainContainer = document.querySelector("#container")
 
-mainContainer.addEventListener( "change", (event) => {
+mainContainer.addEventListener("change", (event) => {
     if (event.target.id === "governors") {
-        const [governorId,colonyId] = event.target.value.split("--")
+        const [governorId, colonyId] = event.target.value.split("--")
         setGovernor(parseInt(governorId))
         setColony(parseInt(colonyId))
+      
     }
 })
 
-                         //COLONY AND PURCHASES//
+//COLONY AND PURCHASES//
 
-const findColony = (govColonyId) => {
-    for(const colony of getColonies()){
-        if(colony.id == govColonyId){
-          setColony(colony.id)
-          return colony.name
+// find the colony of the selected governor
+
+const findColony = () => {
+    let state= getTransientState()
+    for (const colony of getColonies()) {
+        if (colony.id == state.colonyId) {
+            return colony.name
         }
     }
 }
+
 
 // find the minerals that this colony has purchased
 
 const findMinerals = (colonyId) => {
     let colonyMinerals = []
-    for( const mineral of getPurchasedMinerals()){
-        if (mineral.colonyId === colonyId){
+    for (const mineral of getPurchasedMinerals()) {
+        if (mineral.colonyId === colonyId) {
             colonyMinerals.push(mineral)
         }
     }
     return colonyMinerals
 }
 
-// find the colony of the selected governor
+
 // create html for that colony's name and inventory
 
 export const colonyInventoryHTML = () => {
-    return `
-    <div id="colonyName">
-        <h2>${findColony()}</h2>
-    </div>
-    <div id="inventory">
-        <ul>
-        ${findMinerals(getTransientState().colonyId).map(mineral =>{ 
-            return `<li>${mineral.name}</li>`
-            }).join("")
-        }
-        </ul>
-    </div>` 
+    let state = getTransientState()
+    if (state.governorId){
+    let html = ""
+        html += `
+            <div id="colonyName">
+                <h2>${findColony()}</h2>
+            </div>
+            <div id="inventory">
+                <ul>
+                    ${findMinerals(getTransientState().colonyId).map(mineral => {
+                    return `<li>${mineral.name}</li>`
+                    }).join("")
+                    }
+                </ul>
+            </div>`
+    return html} else {return ""}
 }
-
