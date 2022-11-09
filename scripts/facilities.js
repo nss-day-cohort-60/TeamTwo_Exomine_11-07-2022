@@ -1,6 +1,5 @@
 import { getFacilities, setFacility, getFacilityMinerals, getTransientState } from "./database.js";
 
-
 //function to make a drop down of all available facilities - the id is the facilityID for each HTML element
 export const facilityDropDown = () => {
     let facilities = getFacilities()
@@ -8,15 +7,12 @@ export const facilityDropDown = () => {
             <select name="facilityDropDown">
             <option id="defaultdropdown">Choose a Facility</option>`
     let listItems = facilities.map (facility => {
-        return `<option id="${facility.id}">${facility.name}</option>`
-    })
-    html += listItems.join("")
+        return `<option value="${facility.id}">${facility.name}</option>`
+    }).join("")
+    html += listItems
     html += "</select>"
     return html
 }
-
-
-
 
 /*define function to output html for facilityMinerals radio buttons
 grab current transient state, faacilityMinerals. Filter facilityMinerals by productionId
@@ -33,16 +29,14 @@ export const facilityRadio = () => {
     </li>`})
     html += listItems.join("")
     html += "</ul>"
+    console.log(transientState)
+
     return html
 }
-
-
-
-
 
 //code for event listener
 document.addEventListener("change", (event) => {
     if (event.target.name === "facilityDropDown") {
-        setFacility(parseInt(event.target.id))
+        setFacility(parseInt(event.target.value))
     }
 })

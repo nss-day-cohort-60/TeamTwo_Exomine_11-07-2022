@@ -10,7 +10,7 @@ const database = {
 
         },
         {
-            id: 3,
+            id: 2,
             name: "Europa",
 
         }
@@ -122,10 +122,10 @@ const database = {
     ],
 
     transientState: {
-        // colonyId:1,
-        // productionId: 1,
-        // mineralName: "salt",
-        // governorId: 1
+        colonyId:1,
+        productionId: 1,
+        mineralName: "salt",
+        governorId: 1
     },
 
     purchasedMinerals: []

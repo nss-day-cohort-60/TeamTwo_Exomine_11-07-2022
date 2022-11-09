@@ -36,18 +36,16 @@ mainContainer.addEventListener("change", (event) => {
         const [governorId, colonyId] = event.target.value.split("--")
         setGovernor(parseInt(governorId))
         setColony(parseInt(colonyId))
+      
     }
 })
-
-
-
 
 //COLONY AND PURCHASES//
 
 // find the colony of the selected governor
 
-let state = getTransientState()
 const findColony = () => {
+    let state= getTransientState()
     for (const colony of getColonies()) {
         if (colony.id == state.colonyId) {
             return colony.name
@@ -61,7 +59,7 @@ const findColony = () => {
 const findMinerals = (colonyId) => {
     let colonyMinerals = []
     for (const mineral of getPurchasedMinerals()) {
-        if (mineral.colonyId == colonyId) {
+        if (mineral.colonyId === colonyId) {
             colonyMinerals.push(mineral)
         }
     }
@@ -72,6 +70,8 @@ const findMinerals = (colonyId) => {
 // create html for that colony's name and inventory
 
 export const colonyInventoryHTML = () => {
+    let state = getTransientState()
+    if (state.governorId){
     let html = ""
         html += `
             <div id="colonyName">
@@ -79,12 +79,11 @@ export const colonyInventoryHTML = () => {
             </div>
             <div id="inventory">
                 <ul>
-                    ${findMinerals(getTransientState().colonyId).map(mineral => {
-                    return `<li>${mineral.name}</li>`
+                    ${findMinerals(state.colonyId).map(mineral => {
+                    return `<li>${mineral.mineralName}</li>`
                     }).join("")
                     }
                 </ul>
             </div>`
-    return html
+    return html} else {return ""}
 }
-

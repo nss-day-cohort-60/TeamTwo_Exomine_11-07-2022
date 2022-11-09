@@ -10,6 +10,7 @@ document.addEventListener("stateChanged", (event) => {
 
 const render = () => {
     mainContainer.innerHTML = thisIsntEvenMyFinalForm()
+    
 }
 
 mainContainer.innerHTML = thisIsntEvenMyFinalForm()
