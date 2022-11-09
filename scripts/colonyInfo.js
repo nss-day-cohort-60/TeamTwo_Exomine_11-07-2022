@@ -79,8 +79,8 @@ export const colonyInventoryHTML = () => {
             </div>
             <div id="inventory">
                 <ul>
-                    ${findMinerals(getTransientState().colonyId).map(mineral => {
-                    return `<li>${mineral.name}</li>`
+                    ${findMinerals(state.colonyId).map(mineral => {
+                    return `<li>${mineral.quantity} tons of ${mineral.mineralName}</li>`
                     }).join("")
                     }
                 </ul>

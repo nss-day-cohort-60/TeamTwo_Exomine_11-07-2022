@@ -177,6 +177,7 @@ export const getTransientState = () => {
 
 export const purchaseMineral = () => {
     //add transient state inventory to purchasedMaterials array
+    
     const existingInventoryCheck = () => { 
         const existing = database.purchasedMinerals.filter(pM => {
             return pM.mineralName === database.transientState.mineralName && pM.colonyId === database.transientState.colonyId})
@@ -193,8 +194,10 @@ export const purchaseMineral = () => {
     }   
 
     if (existingInventoryCheck().length > 0) {
-            existingInventoryCheck().quantity ++
+            const foundMineral = existingInventoryCheck()
+            foundMineral[0].quantity ++
     } else {
+
         const getMaxId = () => {
             return Math.max(...(database.purchasedMinerals.map(mineral => { return mineral.id })),0)
         }
