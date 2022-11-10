@@ -19,12 +19,13 @@ const findActiveGovernors = () => {
 // loop through the active governers and display them in a drop down
 
 export const governorsFunction = () => {
+    let state = getTransientState()
     let html = `
     <select class="governors" id="governors">`
     html+=`
         <option value="">Choose Governor</option>
         ${findActiveGovernors().map(governor => {
-        return `<option value="${governor.id}--${governor.colonyId}">${governor.name}</option>`
+        return `<option ${state.governorId===governor.id? "selected": ""} value="${governor.id}--${governor.colonyId}">${governor.name}</option>`
     }).join("")}
     </select>`
     return html

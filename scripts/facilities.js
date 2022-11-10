@@ -16,7 +16,7 @@ export const facilityDropDown = () => {
             <option id="defaultdropdown">Choose a Facility</option>`
     }
     let listItems = facilities.map (facility => {
-        return `<option value="${facility.id}">${facility.name}</option>`
+        return `<option ${state.productionId===facility.id? "selected": ""} value="${facility.id}">${facility.name}</option>`
     }).join("")
     html += listItems
     html += "</select>"
@@ -34,7 +34,7 @@ export const facilityRadio = () => {
 
     let html= "<h3> Facility Minerals</h3><ul>"
     const listItems = facilityMineral.map (facilityM => {return `<li> 
-    <input type="radio" name="facilityMinerals" value="${facilityM.name}" /> ${facilityM.name}
+    <input type="radio" ${transientState.mineralName===facilityM.name? "selected": ""} name="facilityMinerals" value="${facilityM.name}" /> ${facilityM.name}
     </li>`})
     html += listItems.join("")
     html += "</ul>"
