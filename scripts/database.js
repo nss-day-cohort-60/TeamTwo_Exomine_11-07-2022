@@ -252,7 +252,7 @@ export const purchaseMineral = () => {
     })
     //reset transient state
     database.cartMinerals = []
-    database.transientState = {}
+    // database.transientState = {}
 
 
     // Broadcast custom event to entire documement so that the
